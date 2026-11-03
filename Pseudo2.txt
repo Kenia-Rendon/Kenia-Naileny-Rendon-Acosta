@@ -1,0 +1,39 @@
+INICIO
+
+ENTERO A
+ENTERO B
+ENTERO C
+
+ESCRIBIR "Ingresa el valor de A: "
+LEER A
+
+ESCRIBIR "Ingresa el valor de B: "
+LEER B
+
+ESCRIBIR "Ingresa el valor de C: "
+LEER C
+
+SI (A = 0 Y B = 0 Y C = 0) ENTONCES
+  ESCRIBIR "Los valores no indican la figura"
+SI NO
+   SI (B= 0 Y C = 0) ENTONCES
+      ESCRIBIR "La figura es un Circulo"
+SI NO
+   SI C = 0 ENTONCES
+   SI A = B ENTONCES
+    ESCRIBIR "La figura es un Cuadrado"
+SI NO
+ ESCRIBIR "La figura es un Rectangulo"
+ FIN SI 
+
+ SI NO
+    SI (A = B Y B = C) ENTONCES
+      ESCRIBIR "La figura es un Triangulo Equilatero"
+      SI NO
+       SI (A = B o A = C o B = C) ENTONCES
+       ESCRIBIR "La figura es un Triangulo Isosceles"
+     SI NO
+       ESCRIBIR "La figura es un Triangulo Escaleno"
+       FIN SI
+    FIN SI
+FIN

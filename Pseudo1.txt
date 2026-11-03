@@ -1,0 +1,20 @@
+INICIO
+
+ENTERO A
+ENTERO B
+
+ENTERO AREA
+
+ESCRIBIR "Ingresa el lado A: "
+LEER A
+ESCRIBIR "Ingresa el lado B: "
+LEER B
+
+SI (A== 0 Y B==0) ENTONCES
+ mostrar "ninguno de los valores puede ser 0"
+
+  SINO AREA <- A * B
+
+ESCRIBIR "El Area del Rectangulo es: "
+ FIN SI
+FIN

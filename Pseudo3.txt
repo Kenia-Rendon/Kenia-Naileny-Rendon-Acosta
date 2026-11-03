@@ -1,0 +1,158 @@
+INICIO
+
+    // DECLARACIÓN DE CONSTANTES
+    CONSTANTE NINGUNA <- 0
+    CONSTANTE CUADRADO <- 1
+    CONSTANTE RECTANGULO <- 2
+    CONSTANTE CIRCULO <- 3
+    CONSTANTE EQUILATERO <- 4
+    CONSTANTE ISOSCELES <- 5
+    CONSTANTE ESCALENO <- 6
+
+    CONSTANTE PI <- 3.14
+
+    // DECLARACIÓN DE VARIABLES PRINCIPALES
+    ENTERO opcion <- 0
+    ENTERO figuraActual <- NINGUNA
+    ENTERO A <- 0
+    ENTERO B <- 0
+    ENTERO C <- 0
+    REAL areaCalculada <- 0.0
+
+    // MENÚ INTERACTIVO
+    HACER
+        ESCRIBIR "--- MENÚ ---"
+        ESCRIBIR "1. Determine figura."
+        ESCRIBIR "2. Calcule área."
+        ESCRIBIR "3. Salir."
+        ESCRIBIR "Seleccione una opción: "
+        LEER opcion
+
+        SEGUN opcion HACER
+            CASO 1:
+                // Entrada de datos
+                ESCRIBIR "Ingresa el valor de A: "
+                LEER A
+                ESCRIBIR "Ingresa el valor de B: "
+                LEER B
+                ESCRIBIR "Ingresa el valor de C: "
+                LEER C
+
+                // Evaluación modular
+                figuraActual <- DeterminarFigura(A, B, C)
+
+                SEGUN figuraActual HACER
+                    CASO CUADRADO:
+                        ESCRIBIR "La figura es un cuadrado"
+                    CASO RECTANGULO:
+                        ESCRIBIR "La figura es un rectángulo"
+                    CASO CIRCULO:
+                        ESCRIBIR "La figura es un círculo"
+                    CASO EQUILATERO:
+                        ESCRIBIR "La figura es un triángulo equilátero"
+                    CASO ISOSCELES:
+                        ESCRIBIR "La figura es un triángulo isósceles"
+                    CASO ESCALENO:
+                        ESCRIBIR "La figura es un triángulo escaleno"
+                    DE OTRO MODO:
+                        ESCRIBIR "Los valores no indican figura"
+                        figuraActual <- NINGUNA // Invalida cualquier figura previa
+                FIN SEGUN
+
+            CASO 2:
+                SI figuraActual == NINGUNA ENTONCES
+                    ESCRIBIR "Primero deberá determinar la figura en la opción 1"
+                SINO
+                    areaCalculada <- CalcularArea(figuraActual, A, B, C)
+
+                    SEGUN figuraActual HACER
+                        CASO CUADRADO:
+                            ESCRIBIR "El área del CUADRADO es ", areaCalculada
+                        CASO RECTANGULO:
+                            ESCRIBIR "El área del RECTÁNGULO es ", areaCalculada
+                        CASO CIRCULO:
+                            ESCRIBIR "El área del CÍRCULO es ", areaCalculada
+                        CASO EQUILATERO:
+                            ESCRIBIR "El área del TRIÁNGULO EQUILÁTERO es ", areaCalculada
+                        CASO ISOSCELES:
+                            ESCRIBIR "El área del TRIÁNGULO ISÓSCELES es ", areaCalculada
+                        CASO ESCALENO:
+                            ESCRIBIR "El área del TRIÁNGULO ESCALENO es ", areaCalculada
+                    FIN SEGUN
+                FIN SI
+
+            CASO 3:
+                ESCRIBIR "Hasta la próxima"
+
+            DE OTRO MODO:
+                ESCRIBIR "Opción no válida"
+        FIN SEGUN
+
+    MIENTRAS opcion != 3
+
+FIN
+
+// FUNCIONES 
+
+// FUNCIÓN: DeterminarFigura
+FUNCIÓN DeterminarFigura(ENTERO a, ENTERO b, ENTERO c) RETORNA ENTERO
+    SI a == 0 Y b == 0 Y c == 0 ENTONCES
+        RETORNAR NINGUNA
+    SINO SI b == 0 Y c == 0 ENTONCES
+        SI a > 0 ENTONCES
+            RETORNAR CIRCULO
+        SINO
+            RETORNAR NINGUNA
+        FIN SI
+    SINO SI c == 0 ENTONCES
+        SI a <= 0 O b <= 0 ENTONCES
+            RETORNAR NINGUNA
+        FIN SI
+        
+        SI a == b ENTONCES
+            RETORNAR CUADRADO
+        SINO
+            RETORNAR RECTANGULO
+        FIN SI
+    SINO
+        // Validación de lados positivos y desigualdad triangular
+        SI a <= 0 O b <= 0 O c <= 0 O (a + b <= c) O (a + c <= b) O (b + c <= a) ENTONCES
+            RETORNAR NINGUNA
+        SINO SI a == b Y b == c ENTONCES
+            RETORNAR EQUILATERO
+        SINO SI a == b O a == c O b == c ENTONCES
+            RETORNAR ISOSCELES
+        SINO
+            RETORNAR ESCALENO
+        FIN SI
+    FIN SI
+FIN FUNCIÓN
+
+
+// FUNCIÓN: CalcularArea
+FUNCIÓN CalcularArea(ENTERO figura, ENTERO a, ENTERO b, ENTERO c) RETORNA REAL
+    REAL semiperimetro <- 0.0
+    REAL resultadoArea <- 0.0
+
+    SEGUN figura HACER
+        CASO CUADRADO:
+            RETORNAR a * a
+
+        CASO RECTANGULO:
+            RETORNAR a * b
+
+        CASO CIRCULO:
+            RETORNAR PI * (a * a)
+
+        CASO EQUILATERO:
+        CASO ISOSCELES:
+        CASO ESCALENO:
+            // Fórmula de Herón
+            semiperimetro <- (a + b + c) / 2.0
+            resultadoArea <- RAIZ_CUADRADA(semiperimetro * (semiperimetro - a) * (semiperimetro - b) * (semiperimetro - c))
+            RETORNAR resultadoArea
+
+        DE OTRO MODO:
+            RETORNAR 0.0
+    FIN SEGUN
+FIN FUNCIÓN
